@@ -33,13 +33,15 @@
  .discount-row,
  .total-row {
      display: flex;
-     justify-content: space-between;
+     justify-content:flex-end;
      align-items: center;
  }
 
  .discount-value {
      color: #f44336;
      font-weight: bold;
+     margin-left: 5px;
+     margin-right: 5px;
  }
 
  .total-label,
@@ -47,9 +49,12 @@
      font-weight: bold;
  }
 
+
  .total-value {
      font-size: 18px;
      font-weight: bold;
+     margin-left: 5px;
+     margin-right: 5px;
  }
 
  .discount-input-container {

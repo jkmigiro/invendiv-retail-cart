@@ -22,7 +22,7 @@
         <ng-container  matColumnDef="image">
           <th mat-header-cell *matHeaderCellDef >Image</th>
           <td mat-cell style="vertical-align: middle;text-align: center; padding: 5px; align-self: center;" *matCellDef="let item">
-            <img [src]="item.product.imageUrl" [alt]="item.product.name" class="table-image">
+            <img style="vertical-align: middle;" [src]="item.product.imageUrl" [alt]="item.product.name" class="table-image">
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
