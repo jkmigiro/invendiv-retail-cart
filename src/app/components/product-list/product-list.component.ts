@@ -40,7 +40,7 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         this.searchControl.valueChanges.pipe(
-            debounceTime(300),
+            debounceTime(100),
             distinctUntilChanged(),
             switchMap(term => this.productService.searchProducts(term || ''))
         ).subscribe(products => {

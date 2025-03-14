@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="mat-headline-4">My Cart</h1>
+  <h3 class="mat-headline-4"><b>My Cart</b></h3>
   
   <ng-container *ngIf="cartItems | async as cartItems">
     <mat-card *ngIf="cartItems.length === 0" class="empty-cart-card">
@@ -46,8 +46,11 @@
         <ng-container matColumnDef="quantity">
           <th mat-header-cell *matHeaderCellDef>Quantity</th>
           <td mat-cell *matCellDef="let item">
+            <mat-form-field  appearance="outline">
               <input matInput type="number" min="0" [value]="item.quantity" 
-                    (change)="updateQuantity(item.product.id, $event)">
+              (change)="updateQuantity(item.product.id, $event)">
+              </mat-form-field>
+          
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

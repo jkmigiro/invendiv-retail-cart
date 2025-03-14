@@ -1,27 +1,52 @@
-# RetailCart
+# Angular 18 Retail Cart Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.14.
+A simple retail shopping cart e-commerce application built with Angular 18.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Browse and search products
+- Add products to cart 
+- Update product quantities & subtotal calculation
+- Apply discount codes
+- Persistent cart
+- Unit Testing with Karma & Jasmine
 
-## Code scaffolding
+## Setup and Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Clone the repository:
+```
+git clone https://github.com/jkmigiro/invendiv-retail-cart.git
+cd invendiv-retail-cart
+```
 
-## Build
+2. Install dependencies:
+```
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+3. Run the application:
+```
+ng serve
+```
 
-## Running unit tests
+4. Navigate to `http://localhost:4200/` in your browser.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Available Discount Codes
 
-## Running end-to-end tests
+- `SAVE10`: 10% off the total
+- `SAVE5`: $5 off the total
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Testing
 
-## Further help
+Run the tests with:
+```
+ng test
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Technologies Used
+
+- Angular 18
+- TypeScript
+- RxJS
+- Karma & Jasmine (Testing)
+- Vercel (Deployment)

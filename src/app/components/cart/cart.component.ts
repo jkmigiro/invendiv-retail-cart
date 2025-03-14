@@ -75,10 +75,7 @@ export class CartComponent implements OnInit {
     if(this.discountCode.valid){
       const code = this.discountCode.value||'';
       const success = this.cartService.applyDiscountCode(code);
-      
-      if (!success) {
-        this.discountError = `Invalid discount code: ${code}`;
-      } else {
+      if(success){
         this.discountError = null;
         this.discountCode.reset();
         this.submittedDiscount=false

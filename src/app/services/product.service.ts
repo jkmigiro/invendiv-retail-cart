@@ -44,10 +44,10 @@ export class ProductService {
       imageUrl: '/images/shoe-6-Puma-RS-X3-Layers-Marshmallow-32.jpg'
     },
     {
-      id: 7,
-      name: 'Puma Smash v2 Performance',
-      price: 25,
-      imageUrl: '/images/shoe-7-Puma-Smash-v2-L-Performance-25.jpg'
+      id: 12,
+      name: 'John Foster Leather',
+      price: 50,
+      imageUrl: '/images/shoe-12-John-Foster-Leather-50.jpg'
     },
     {
       id: 8,
@@ -66,6 +66,18 @@ export class ProductService {
       name: 'Suga Leather',
       price: 80,
       imageUrl: '/images/shoe-10-Suga-Leather-80.jpg'
+    },
+    {
+      id: 11,
+      name: 'Vans Authentic',
+      price: 25,
+      imageUrl: '/images/shoe-13-Vans-Authentic-25.jpg'
+    },
+    {
+      id: 13,
+      name: 'Frank Barker Loafer',
+      price: 120,
+      imageUrl: '/images/shoe-14-Frank-Barker-Loafer-120.jpg'
     }
   ];
   
