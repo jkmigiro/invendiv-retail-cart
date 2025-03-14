@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" class="navbar">
+  <span routerLink="/" class="sider">
+    <mat-icon class="logo-icon">shopping_cart</mat-icon>
+    <span> Retail Shop Cart</span>
+  </span>
+
+  <span class="spacer"></span>
+
+  <a routerLink="/products">
+    <button mat-button routerLinkActive="active-link">
+      <div class="button-container">
+        <mat-icon>storefront</mat-icon>
+        <span>Products</span>
+      </div>
+    </button>
+  </a>
+
+  <a routerLink="/cart">
+    <button mat-button routerLinkActive="active-link" class="cart-btn">
+      <div class="button-container">
+        <mat-icon matBadge="{{ cartCount }}" [matBadgeHidden]="cartCount === 0" matBadgeColor="warn">
+          shopping_cart
+        </mat-icon>
+        <span>Cart</span>
+      </div>
+    </button>
+  </a>
+</mat-toolbar>

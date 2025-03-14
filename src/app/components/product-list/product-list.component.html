@@ -1,0 +1,24 @@
+<div class="container">
+  <h1 class="mat-headline-4">Products</h1>
+  
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Search products</mat-label>
+    <input matInput [formControl]="searchControl">
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field>
+
+  <div class="products-grid">
+    <mat-card *ngFor="let product of products$ | async" class="product-card">
+      <img mat-card-image [src]="product.imageUrl" class="product-image">
+      <mat-card-header>
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <mat-card-subtitle>{{ product.price | currency }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="addToCart(product)">
+          Add to Cart
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
