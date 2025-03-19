@@ -3,15 +3,17 @@ import { Observable, of } from 'rxjs';
 import { Product } from '../../models/product.model';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, first, map, switchMap } from 'rxjs/operators';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 @Component({
     standalone: true,
     imports: [
@@ -22,7 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
         MatSelectModule,
         MatCardModule,
         MatIconModule,
-        MatButtonModule
+        MatButtonModule,
+        MatSnackBarModule
     ],
     selector: 'app-product-list',
     templateUrl: './product-list.component.html',
@@ -33,7 +36,7 @@ export class ProductListComponent implements OnInit {
     searchControl = new FormControl('');
     productService: ProductService;
     cartService: CartService;
-    constructor() {
+    constructor(private snackBar: MatSnackBar) {
         this.productService = inject(ProductService)
         this.cartService = inject(CartService)
     }
@@ -53,4 +56,35 @@ export class ProductListComponent implements OnInit {
     addToCart(product: Product): void {
         this.cartService.addToCart(product);
     }
+    isInCart = (product: Product) => {
+        return this.cartService.getCartItems().pipe(
+          map(items => {
+            const found = items.some(item => item.product.id === product.id);
+            return found;
+          })
+        );
+      };
+
+      test(){
+        return of(true)
+      }
+      
+
+      toggleCart(product: Product) {
+        this.isInCart(product).pipe(first()).subscribe(inCart => {
+          if (inCart) {
+            this.cartService.removeFromCart(product.id);
+            this.showNotification(`${product.name} removed from cart`);
+          } else {
+            this.cartService.addToCart(product);
+            this.showNotification(`${product.name} added to cart`);
+          }
+        });
+      }
+      
+
+    showNotification(message: string) {
+        this.snackBar.open(message, 'Close', { duration: 2000 });
+    }
+
 }

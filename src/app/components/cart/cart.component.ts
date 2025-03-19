@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { FormControl, Validators,ReactiveFormsModule,FormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Discount } from '../../models/discount.model';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,8 @@ import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatSnackBar,MatSnackBarModule } from '@angular/material/snack-bar';
+import { Product } from '../../models/product.model';
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -29,7 +31,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     FormsModule,
     MatButtonModule,
     MatDividerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
@@ -41,8 +44,8 @@ export class CartComponent implements OnInit {
   discountCode = new FormControl('', [Validators.minLength(4),this.discountValidator]);
   discountError: string | null = null;
   cartService: CartService
-  displayedColumns: string[] = ['image','product', 'price', 'quantity', 'subtotal', 'actions'];
-  constructor() {
+  displayedColumns: string[] = ['image','product' ,'subtotal', 'actions'];
+  constructor(private snackBar: MatSnackBar) {
     this.cartService=inject(CartService)
   }
 
@@ -52,7 +55,8 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(productId: number): void {
-    this.cartService.removeFromCart(productId);
+    this.snackBar.open(`Item removed from cart`, 'Close', { duration: 2000 });
+    this.cartService.removeFromCart(productId)
   }
 
   updateQuantity(productId: number, event: Event): void {

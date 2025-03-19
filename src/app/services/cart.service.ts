@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Product } from '../models/product.model';
 import { Discount } from '../models/discount.model';
 import { Item } from '../models/item.model';
@@ -53,9 +53,11 @@ export class CartService {
     this.updateCart();
   }
 
-  removeFromCart(productId: number): void {
+  removeFromCart(productId: number): Observable<Item | undefined> {
+    const value=this.getProductById(productId)
     this.cartItems = this.cartItems.filter(item => item.product.id !== productId);
     this.updateCart();
+    return value;
   }
 
   updateQuantity(productId: number, quantity: number): void {
@@ -128,5 +130,11 @@ export class CartService {
   private updateCart(): void {
     this.cartItemsSubject.next([...this.cartItems]);
     this.storageService.setItem('cart', JSON.stringify(this.cartItems));
+  }
+
+  getProductById(productId: number): Observable<Item | undefined> {
+    return this.getCartItems().pipe(
+      map(items => items.find(item => item.product.id === productId))
+    );
   }
 }

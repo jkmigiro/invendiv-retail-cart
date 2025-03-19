@@ -21,7 +21,7 @@
 
         <ng-container  matColumnDef="image">
           <th mat-header-cell *matHeaderCellDef >Image</th>
-          <td mat-cell style="vertical-align: middle;text-align: center; padding: 5px; align-self: center;" *matCellDef="let item">
+          <td mat-cell style="vertical-align: middle; padding: 5px;" *matCellDef="let item">
             <img style="vertical-align: middle;" [src]="item.product.imageUrl" [alt]="item.product.name" class="table-image">
           </td>
           <td mat-footer-cell *matFooterCellDef></td>
@@ -30,8 +30,18 @@
 
         <ng-container matColumnDef="product">
           <th mat-header-cell *matHeaderCellDef>Product</th>
-          <td mat-cell *matCellDef="let item"><b>{{ item.product.name}}</b></td>
-          <td mat-footer-cell *matFooterCellDef>
+          <td mat-cell *matCellDef="let item">
+            <div style="display: flex;flex-direction: column;">
+              <b>{{ item.product.name}}</b>
+           <div>
+            {{item.product.price | currency}}
+            <input matInput type="number" class="styled-input" min="0" [value]="item.quantity" 
+            (change)="updateQuantity(item.product.id, $event)">
+           </div>
+            </div>
+           
+          </td>
+          <td mat-footer-cell *matFooterCellDef style="font-size: 16px;">
             <span *ngIf="!(appliedDiscount$ | async)">TOTAL</span>
             <span *ngIf="(appliedDiscount$ | async)">SUBTOTAL</span>
           </td>
@@ -39,27 +49,23 @@
 
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef>Price</th>
-          <td mat-cell *matCellDef="let item">{{ item.product.price | currency }}</td>
+          <td mat-cell *matCellDef="let item">
+            {{ item.product.price | currency }}
+           <mat-form-field>
+
+           </mat-form-field>
+          </td>
+        
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
-        <ng-container matColumnDef="quantity">
-          <th mat-header-cell *matHeaderCellDef>Quantity</th>
-          <td mat-cell *matCellDef="let item">
-            <mat-form-field  appearance="outline">
-              <input matInput type="number" min="0" [value]="item.quantity" 
-              (change)="updateQuantity(item.product.id, $event)">
-              </mat-form-field>
-          
-          </td>
-          <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
+
         
 
         <ng-container matColumnDef="subtotal">
           <th mat-header-cell *matHeaderCellDef>Subtotal</th>
           <td mat-cell *matCellDef="let item">{{ getItemSubtotal(item) | currency }}</td>
-          <td mat-footer-cell *matFooterCellDef>{{ getSubtotal() | currency }}</td>
+          <td mat-footer-cell style="font-size: 16px;" *matFooterCellDef>{{ getSubtotal() | currency }}</td>
         </ng-container>
         
 
@@ -104,19 +110,20 @@
       <mat-card class="discount-input-card mat-elevation-z2" style="background-color: white; width: 500px; box-shadow: none;">
         <mat-card-content>
           <div class="discount-input-container">
-            <mat-form-field appearance="outline" class="discount-input" >
-              <mat-label>Enter discount code</mat-label>
+            <mat-form-field style="width: 150px;" appearance="outline" class="discount-input" >
+              <mat-label style="font-size: 12px;color: #343dff;">Enter discount code</mat-label>
               <input matInput [formControl]="discountCode">
-              <mat-hint>SAVE10 (10% off) or SAVE5 ($5 off)</mat-hint>
+              <mat-hint style="font-size: 9px;color: gray;">SAVE10(10% off) or SAVE5($5 off)</mat-hint>
               <mat-error *ngIf="discountCode.invalid">{{discountErrorMessage}}</mat-error>
             </mat-form-field>
-            <button mat-flat-button color="primary" 
+            <button mat-flat-button color="accent" 
                    [disabled]="discountCode.invalid || (appliedDiscount$ | async)"
                    (click)="applyDiscount()">
               Apply
             </button>
           </div>
         </mat-card-content>
+        <mat-card-footer></mat-card-footer>
       </mat-card>
 
       <div>
